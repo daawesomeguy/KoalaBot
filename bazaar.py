@@ -16,3 +16,12 @@ for i in x:
     #f.write(x[i]['quick_status']['productId'] + ": ")
     #f.write(str(round(x[i]['quick_status']['buyPrice'] - x[i]['quick_status']['sellPrice'], 1)))
     #f.write("\n")
+
+"""
+Weight system:
+
+Buy volume
+Sell volume
+Margin
+Percentage
+"""
