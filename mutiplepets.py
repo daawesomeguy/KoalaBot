@@ -1,13 +1,29 @@
 import requests,json,ijson
 from operator import itemgetter
 from requests.models import Response
-#name,q3,q4,price1,price2,price3,price4,food1,foodamount,kat,kat1,kat2,kat3
-def get_pet_price(names,q3,q4,price1,price2,price3,price4,food1,foodamount,kat,kat1,kat2,kat3):
+import time
+def get_pet_price(names,q3,food1,price,foodamount,kat):
+    q4=[]
+    for i in range(len(names)):
+        q4.append('idk')
+        if q3[i]=='COMMON' or q3[i]=='common' or q3[i]=='Common':
+            q3[i]='COMMON'
+            q4[i]='UNCOMMON'
+        if q3[i]=='UNCOMMON' or q3[i]=='uncommon' or q3[i]=='Uncommon':
+            q3[i]='UNCOMMON'
+            q4[i]='RARE'
+        if q3[i]=='RARE' or q3[i]=='Rare' or q3[i]=='rare':
+            q3[i]='RARE'
+            q4[i]='EPIC'
+        if q3[i]=='EPIC' or q3[i]=='Epic' or q3[i]=='epic':
+            q3[i]='EPIC'
+            q4[i]='LEGENDARY'
     r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
     o=0
+    finsihedreturn=[]
     totalpages=r.json()['totalPages']
     katvalues=[]
-    whalevalues={}
+    whalevalues=[]
     for i in range(0,totalpages):
         while True:
             try:
@@ -28,7 +44,7 @@ def get_pet_price(names,q3,q4,price1,price2,price3,price4,food1,foodamount,kat,k
                 if str(name) in data['item_name'] and 'Skin' not in data['item_name']:
                     try:
                         if data['bin']==True:
-                            whalevalues[data['tier'],data['starting_bid'],data['item_name']]=name
+                            whalevalues.append([data['tier'],data['starting_bid'],data['item_name']])
                     except KeyError:
                         pass
     katvalues.sort()
@@ -39,67 +55,65 @@ def get_pet_price(names,q3,q4,price1,price2,price3,price4,food1,foodamount,kat,k
             break
         except:
             continue
-    print(int(len(names)))
     for i in range(int(len(names))):
-        fishprice=respons['products'][food1[0]]['quick_status']['buyPrice']
-        print(q3[i])
-        print(kat[i])
-        x=[]
-        print('debug3')
+        x=0
+        fishprice=respons['products'][food1[i]]['quick_status']['buyPrice']
+        x=[]         
         if q3[i]=='COMMON':
-            print('debug')
-            for i in range(int(kat[i])):
+            for h in range(int(kat[i])):
                 o=int(katvalues[0]+o)
                 x.append(katvalues.pop(0))
-            for i in range(len(x)):
-                katvalues.insert(0,x[i])
-            print(min({k:v for (k,v) in whalevalues.items() if q3[i] in k}))
-            finished=o+int(price1[i])+int(min({k:v for (k,v) in whalevalues.items() if q3[i] in k})[1])+fishprice*int(foodamount[i][0])
-            return round(-finished+min({k:v for (k,v) in whalevalues.items() if q4[i] in k})[1])
+            for h in range(len(x)):
+                katvalues.insert(0,x[h])
+            whale1=[item for item in whalevalues if str(names[i]) in item[2]]
+            r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
+            print(r)
+            finished=o+int(price[i])+int(r[1])+round(fishprice)*int(foodamount[i])
+            finsihedreturn.append(round(r[1]-finished))
         elif q3[i]=='UNCOMMON':
-            for i in range(int(kat1[i])):
+            for h in range(int(kat[i])):
                 o=int(katvalues[0]+o)
                 x.append(katvalues.pop(0))
-            for i in range(len(x)):
-                katvalues.insert(0,x[i])
-            finished=o+int(price1[i])+int(min({k:v for (k,v) in whalevalues.items() if q3[i] in k})[1])+fishprice*int(foodamount[i][0])
-            return round(-finished+min({k:v for (k,v) in whalevalues.items() if q4[i] in k})[1])
+            for h in range(len(x)):
+                katvalues.insert(0,x[h])
+            print(i)
+            whale1=[item for item in whalevalues if str(names[i]) in item[2]]
+            r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
+            print(r)
+            finished=o+int(price[i])+r[1]+round(fishprice)*int(foodamount[i])
+            finsihedreturn.append(round(r[1]-finished))
         elif q3[i]=='RARE':
-            print('debug2')
-            for i in range(int(kat2[i])):
+            for h in range(int(kat[i])):
                 o=int(katvalues[0]+o)
                 x.append(katvalues.pop(0))
-            for i in range(len(x)):
-                katvalues.insert(0,x[i])
-            finished=o+int(price1[i])+int(min({k:v for (k,v) in whalevalues.items() if q3[i] in k})[1])+fishprice*int(foodamount[i][0])
-            return round(-finished+min({k:v for (k,v) in whalevalues.items() if q4[i] in k})[1])
+            for h in range(len(x)):
+                katvalues.insert(0,x[h])
+            whale1=[item for item in whalevalues if str(names[i]) in item[2]]
+            r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
+            print(r)
+            finished=o+int(price[i])+int(r[1])+round(fishprice)*int(foodamount[i])
+            finsihedreturn.append(round(r[1]-finished))
         elif q3[i]=='EPIC':
-            print('debug')
-            for i in range(int(kat3[i])):
-                o=int(katvalues[0]+o)
+            for h in range(int(kat[i])):
+                h=int(katvalues[0]+o)
                 x.append(katvalues.pop(0))
-            for i in range(len(x)):
-                katvalues.insert(0,x[i])
-            finished=o+int(price1[i])+int(min({k:v for (k,v) in whalevalues.items() if q3[i] in k})[1])+fishprice*int(foodamount[i][0])
-            return round(-finished+min({k:v for (k,v) in whalevalues.items() if q4[i] in k})[1])
+            for h in range(len(x)):
+                katvalues.insert(0,x[h])
+            whale1=[item for item in whalevalues if str(names[i]) in item[2]]
+            r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
+            print(r)
+            finished=o+int(price[i])+int(r[1])+round(fishprice)*int(foodamount[i])
+            finsihedreturn.append(round(r[1]-finished))
+    return finsihedreturn
 names=['Blue Whale'
-,'Armadillo']
+,'Armadillo','Horse']
 q3=[
     'COMMON',
-    'RARE'
-]
-q4=[
-    'UNCOMMON',
+    'RARE',
     'EPIC'
-]
-price1=['1000','1000']
-price2=['1000','1000']
-price3=['1000','1000']
-price4=['1000','1000']
-food1=['SPOOKY_SHARD','BROWN_MUSHROOM']
-foodamount=['1','2','3','4']
-kat=['1','1']
-kat1=['2','2']
-kat2=['3','3']
-kat3=['4','4']
-print(get_pet_price(names,q3,q4,price1,price2,price3,price4,food1,foodamount,kat,kat1,kat2,kat3))
+    ]
+price=['1000','1000','1000']
+food=['SPOOKY_SHARD','BROWN_MUSHROOM','BROWN_MUSHROOM']
+foodamount=['1','1','1']
+kat=['1','1','1']
+print(get_pet_price(names,q3,food,price,foodamount,kat))
