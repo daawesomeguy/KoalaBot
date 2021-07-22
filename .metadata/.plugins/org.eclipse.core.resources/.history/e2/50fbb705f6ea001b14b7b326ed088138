@@ -1,0 +1,27 @@
+package KoalaBot.KoalaBot.commands;
+
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandEvent;
+
+public class Petflip extends Command {
+	public Petflip() {
+		this.name = "Petflip";
+		this.help = "Profit of a pet flip";
+		this.arguments = "[Pet type][Starting Rarity][Finish Rarity][Cost][Cost2][Cost3][Cost4][Food amount][Kat1][Kat2][Kat3][Kat4]";
+	}
+	@Override
+	protected void execute(CommandEvent e) {
+		if (e.getArgs().isEmpty()) {
+			e.reply("Missing Arguments. Please use [Pet type][Starting Rarity][Finish Rarity][Cost][Cost2][Cost3][Cost4][Food amount][Kat1][Kat2][Kat3][Kat4]");
+		} else {
+			String[] args = e.getArgs().split(" ");
+			if (args.length != 12)  {
+				e.reply("Wrong Arguments. Please use [Pet type][Starting Rarity][Finish Rarity][Cost][Cost2][Cost3][Cost4][Food amount][Kat1][Kat2][Kat3][Kat4]");
+			} else {
+				
+			}
+		}
+		
+	}
+
+}

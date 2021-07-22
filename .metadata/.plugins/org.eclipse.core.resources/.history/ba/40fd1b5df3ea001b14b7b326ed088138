@@ -1,0 +1,17 @@
+package KoalaBot.KoalaBot.commands;
+
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandEvent;
+
+public class Petflip extends Command {
+	public Petflip() {
+		this.name = "Petflip";
+		this.help = "Get profit of pet flip";
+		this.arguments = "[][][][][][][][][]";
+	}
+	@Override
+	protected void execute(CommandEvent e) {
+		e.reply("test");
+	}
+
+}

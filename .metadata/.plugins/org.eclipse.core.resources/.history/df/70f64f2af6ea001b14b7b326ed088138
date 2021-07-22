@@ -1,0 +1,42 @@
+package KoalaBot.KoalaBot.commands;
+
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandEvent;
+
+public class Petflip extends Command {
+	public Petflip() {
+		this.name = "Petflip";
+		this.help = "Profit of a pet flip";
+		this.arguments = "[Pet type][Starting Rarity][Finish Rarity][Cost][Cost2][Cost3][Cost4][Food amount][Kat1][Kat2][Kat3][Kat4]";
+	}
+	@Override
+	protected void execute(CommandEvent e) {
+		if (e.getArgs().isEmpty()) {
+			e.reply("Missing Arguments. Please use [Pet type][Starting Rarity][Finish Rarity][Cost][Cost2][Cost3][Cost4][Food amount][Kat1][Kat2][Kat3][Kat4]");
+		} else {
+			String[] args = e.getArgs().split(" ");
+			if (args.length != 12)  {
+				e.reply("Wrong Arguments. Please use [Pet type][Starting Rarity][Finish Rarity][Cost][Cost2][Cost3][Cost4][Food amount][Kat1][Kat2][Kat3][Kat4]");
+			} else {
+				String pet_type = args[0];
+				String s_rarity = args[1];
+				String f_rarity = args[2];
+				int cost = Integer.valueOf(args[3]);
+				int cost2 = Integer.valueOf(args[4]);
+				int cost3 = Integer.valueOf(args[5]);
+				int cost4 = Integer.valueOf(args[6]);
+				int food = Integer.valueOf(args[7]);
+				int kat = Integer.valueOf(args[8]);
+				int kat2 = Integer.valueOf(args[9]);
+				int kat3 = Integer.valueOf(args[10]);
+				int kat4 = Integer.valueOf(args[11]);
+				
+				e.reply(pet_type + s_rarity + f_rarity + cost + cost2 + cost3 + cost4 + food + kat + kat2 + kat3 + kat4);
+				
+				
+			}
+		}
+		
+	}
+
+}
