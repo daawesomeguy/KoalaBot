@@ -12,3 +12,7 @@ for i in x:
         print(item + str(buy) + " " + str(sell) + " " + str(margin) + " " + str(percentage))
     except:
         print("error")
+
+    #f.write(x[i]['quick_status']['productId'] + ": ")
+    #f.write(str(round(x[i]['quick_status']['buyPrice'] - x[i]['quick_status']['sellPrice'], 1)))
+    #f.write("\n")
