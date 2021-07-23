@@ -1,20 +1,28 @@
 import discord
 import requests
 from discord.ext import commands
-
+"""names=['Blue Whale'
+,'Armadillo','Horse']
+q3=[
+    'COMMON',
+    'RARE',
+    'EPIC'
+    ]
+price=['1000','1000','1000']
+food=['SPOOKY_SHARD','BROWN_MUSHROOM','BROWN_MUSHROOM']
+foodamount=['1','1','1']
+kat=['1','1','1']"""
 class Petflip(commands.Cog):
 
     def __init__(self, client):
         self.client = client
 
     @commands.command()
-    async def petflip(self, ctx):
-        
-        await ctx.send('test')
-
+    async def petflip(self, ctx, names, q3, food, price, foodamount, kat):
+        await ctx.send(get_pet_price(names,q3,food,price,foodamount,kat))
+    
 def setup(client):
     client.add_cog(Petflip(client))
-
 
 def get_pet_price(names,q3,food1,price,foodamount,kat):
     q4=[]
@@ -119,14 +127,3 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
             finished=o+int(price[i])+int(r[1])+round(fishprice)*int(foodamount[i])
             finsihedreturn.append(round(r[1]-finished))
     return finsihedreturn
-names=['Blue Whale'
-,'Armadillo','Horse']
-q3=[
-    'COMMON',
-    'RARE',
-    'EPIC'
-    ]
-price=['1000','1000','1000']
-food=['SPOOKY_SHARD','BROWN_MUSHROOM','BROWN_MUSHROOM']
-foodamount=['1','1','1']
-kat=['1','1','1']
