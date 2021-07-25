@@ -141,7 +141,7 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
                 print(e)
                 pass
     return finsihedreturn
-class Inputpet(commands.Cog):
+class Inputpet(commands.Cog, name="Petflip"):
 
     def __init__(self, client):
         self.client = client
@@ -149,6 +149,9 @@ class Inputpet(commands.Cog):
     @commands.command()
     #async def petflip(self, ctx):
     async def inputpet(self, ctx,*,arg):
+        """
+        : Custom inputs for pets!
+        """
         await ctx.send("Getting profit...")
         x=arg.split()
         y=[]
@@ -166,3 +169,4 @@ class Inputpet(commands.Cog):
 def setup(client):
     client.add_cog(Inputpet(client))
  
+
