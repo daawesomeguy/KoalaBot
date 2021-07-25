@@ -17,7 +17,7 @@ cwd = str(cwd)
 print(f"{cwd}\n-----")
 
 # Defining a few things
-bot = commands.Bot(command_prefix='-', case_insensitive=True, owner_id=760479247579480086)
+bot = commands.Bot(command_prefix='-', case_insensitive=True, owner_id=868996601341964368) #other id for 1st bot -> 760479247579480086
 logging.basicConfig(level=logging.INFO)
 status = cycle(['with -help', 'with -', 'Hypixel Skyblock']) #add more 
 
@@ -46,11 +46,11 @@ async def unload(ctx, extension):
 async def info(ctx):
     embed = discord.Embed(
         title = 'Info on KoalaBot',
-        descrption = 'Description',
+        descrption = 'Made from Hypixel API',
         colour = discord.Colour.blue()
     )
 
-    embed.set_footer(text='Made by TheLitblock & DaAwsomeGuy')
+    embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy')
     embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
     embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
     embed.add_field(name = 'What does this bot do?', value = 'It finds items to flip in the Bazaar and AH to flip!', inline = True)
@@ -65,4 +65,4 @@ for filename in os.listdir('KoalaBot/cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
-bot.run("NzYwNDc5MjQ3NTc5NDgwMDg2.X3MpfQ.Gnm_q982rxCqDM1w-nN2VxlzY2o") # Runs our bot
+bot.run("ODY4OTk2NjAxMzQxOTY0MzY4.YP3yJg.xwCWoypuPCjwKzfvOw91M2ZrIoc") # Runs our bot 1st bot -> NzYwNDc5MjQ3NTc5NDgwMDg2.X3MpfQ.Gnm_q982rxCqDM1w-nN2VxlzY2o
