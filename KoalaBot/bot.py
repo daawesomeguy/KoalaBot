@@ -8,6 +8,8 @@ from itertools import cycle
 from discord.ext import commands
 import traceback
 import datetime
+
+from discord.ext.commands.errors import CommandNotFound
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
 print(f"{cwd}\n-----")
@@ -25,6 +27,11 @@ async def on_ready():
     print("-----\nLogged in as: {} : {}\n-----\nMy current prefix is: -\n-----".format(bot.user.name, bot.user.id))
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name=f"Playing with -help")) # This changes the bots 'activity'
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("Command not found. Check -help for commands.")
+
 @bot.command()
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
@@ -37,7 +44,7 @@ async def unload(ctx, extension):
 async def change_status():
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(next(status)))
 
-for filename in os.listdir('/Users/alliskim/Downloads/KoalaBot-main 2/KoalaBot/cogs'):
+for filename in os.listdir('KoalaBot/cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 

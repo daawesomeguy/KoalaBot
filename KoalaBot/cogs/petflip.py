@@ -36,6 +36,9 @@ class Petflip(commands.Cog):
     @commands.command()
     #async def petflip(self, ctx):
     async def petflip(self, ctx):
+        """
+        Get profit of certain pet flips
+        """
         await ctx.send("Getting profit...")
         await ctx.send(get_pet_price(names,food,price,foodamount,kat))
         await ctx.send("Done!")
