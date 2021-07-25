@@ -1,10 +1,30 @@
 import requests,json,ijson
 from operator import itemgetter
 from requests.models import Response
-import time
-def get_pet_price(names,q3,food1,price,foodamount,kat):
+import time,itertools
+import numpy as np
+def get_pet_price(names,food1,price,foodamount,kat):
+    q3=[]
     q4=[]
+    def value_to_float(x):
+        if type(x) == float or type(x) == int:
+            return x
+        if 'k' in x:
+            if len(x) > 1:
+                return float(int(x.replace('k', ''))) * 1000
+            return 1000.0
+        if 'm' in x:
+            if len(x) > 1:
+                return float(int(x.replace('m', ''))) * 1000000
+            return 1000000.0
+        return x
+    price = [value_to_float(i) for i in price]
     for i in range(len(names)):
+        q3.insert(0,'COMMON')
+        q3.insert(0,'UNCOMMON')
+        q3.insert(0,'RARE')
+        q3.insert(0,'EPIC')
+    for i in range(len(q3)):
         q4.append('idk')
         if q3[i]=='COMMON' or q3[i]=='common' or q3[i]=='Common':
             q3[i]='COMMON'
@@ -18,10 +38,16 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
         if q3[i]=='EPIC' or q3[i]=='Epic' or q3[i]=='epic':
             q3[i]='EPIC'
             q4[i]='LEGENDARY'
-    r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
-    o=0
+    names=np.repeat(names,4)
+    while True:
+        try:
+            r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
+            totalpages=r.json()['totalPages']
+            break
+        except:
+            continue
     finsihedreturn=[]
-    totalpages=r.json()['totalPages']
+    o=0
     katvalues=[]
     whalevalues=[]
     for i in range(0,totalpages):
@@ -41,7 +67,7 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
                 pass
         for name in names:
             for data in x['auctions']:
-                if str(name) in data['item_name'] and 'Skin' not in data['item_name']:
+                if str(name) in data['item_name'] and '[' in data['item_name']:
                     try:
                         if data['bin']==True:
                             whalevalues.append([data['tier'],data['starting_bid'],data['item_name']])
@@ -56,64 +82,132 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
         except:
             continue
     for i in range(int(len(names))):
-        x=0
+
         fishprice=respons['products'][food1[i]]['quick_status']['buyPrice']
         x=[]         
         if q3[i]=='COMMON':
-            for h in range(int(kat[i])):
-                o=int(katvalues[0]+o)
-                x.append(katvalues.pop(0))
-            for h in range(len(x)):
-                katvalues.insert(0,x[h])
-            whale1=[item for item in whalevalues if str(names[i]) in item[2]]
-            r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
-            print(r)
-            finished=o+int(price[i])+int(r[1])+round(fishprice)*int(foodamount[i])
-            finsihedreturn.append(round(r[1]-finished))
+            try:
+                for h in range(int(kat[i])):
+                    o=int(katvalues[0]+o)
+                    x.append(katvalues.pop(0))
+                for h in range(len(x)):
+                    katvalues.insert(0,x[h])
+                whale1=[item for item in whalevalues if str(names[i]) in item[2]]
+                r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
+                p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
+                print(r)
+                print(p)
+                finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
+                finsihedreturn.append(round(r[1]-finished))
+            except Exception as e:
+                print(e)
+                pass
         elif q3[i]=='UNCOMMON':
-            for h in range(int(kat[i])):
-                o=int(katvalues[0]+o)
-                x.append(katvalues.pop(0))
-            for h in range(len(x)):
-                katvalues.insert(0,x[h])
-            print(i)
-            whale1=[item for item in whalevalues if str(names[i]) in item[2]]
-            r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
-            print(r)
-            finished=o+int(price[i])+r[1]+round(fishprice)*int(foodamount[i])
-            finsihedreturn.append(round(r[1]-finished))
+            try:
+                for h in range(int(kat[i])):
+                    o=int(katvalues[0]+o)
+                    x.append(katvalues.pop(0))
+                for h in range(len(x)):
+                    katvalues.insert(0,x[h])
+                whale1=[item for item in whalevalues if str(names[i]) in item[2]]
+                r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
+                p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
+                print(r)
+                print(p)
+                finished=o+int(price[i])+p[1]+round(fishprice)*int(foodamount[i])
+                finsihedreturn.append(round(r[1]-finished))
+            except Exception as e:
+                print(e)
+                pass
         elif q3[i]=='RARE':
-            for h in range(int(kat[i])):
-                o=int(katvalues[0]+o)
-                x.append(katvalues.pop(0))
-            for h in range(len(x)):
-                katvalues.insert(0,x[h])
-            whale1=[item for item in whalevalues if str(names[i]) in item[2]]
-            r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
-            print(r)
-            finished=o+int(price[i])+int(r[1])+round(fishprice)*int(foodamount[i])
-            finsihedreturn.append(round(r[1]-finished))
+            try:
+                for h in range(int(kat[i])):
+                    o=int(katvalues[0]+o)
+                    x.append(katvalues.pop(0))
+                for h in range(len(x)):
+                    katvalues.insert(0,x[h])
+                whale1=[item for item in whalevalues if str(names[i]) in item[2]]
+                r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
+                p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
+                print(r)
+                print(p)
+                finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
+                finsihedreturn.append(round(r[1]-finished))
+            except Exception as e:
+                print(e)
+                pass
         elif q3[i]=='EPIC':
-            for h in range(int(kat[i])):
-                h=int(katvalues[0]+o)
-                x.append(katvalues.pop(0))
-            for h in range(len(x)):
-                katvalues.insert(0,x[h])
-            whale1=[item for item in whalevalues if str(names[i]) in item[2]]
-            r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
-            print(r)
-            finished=o+int(price[i])+int(r[1])+round(fishprice)*int(foodamount[i])
-            finsihedreturn.append(round(r[1]-finished))
+            try:
+                for h in range(int(kat[i])):
+                    h=int(katvalues[0]+o)
+                    x.append(katvalues.pop(0))
+                for h in range(len(x)):
+                    katvalues.insert(0,x[h])
+                whale1=[item for item in whalevalues if str(names[i]) in item[2]]
+                r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
+                p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
+                print(r)
+                print(p)
+                finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
+                finsihedreturn.append(round(r[1]-finished))
+            except Exception as e:
+                print(e)
+                pass
     return finsihedreturn
-names=['Blue Whale'
-,'Armadillo','Horse']
-q3=[
-    'COMMON',
-    'RARE',
-    'EPIC'
-    ]
-price=['1000','1000','1000']
-food=['SPOOKY_SHARD','BROWN_MUSHROOM','BROWN_MUSHROOM']
-foodamount=['1','1','1']
-kat=['1','1','1']
-print(get_pet_price(names,q3,food,price,foodamount,kat))
+names=['Blue Whale','Chicken','Elephant','Pig','Rabbit','Bat','Endermite','Mithril Golem','Rock','Silverfish','Wither Skeleton','Blaze','Enderman']
+price=['15k','75k','900k','9m',
+'2k','5k','190k','250k',
+'15k','75k','100k','14m',
+'2k','5k','190k','250k',
+'2k','5k','190k','250k',
+'2k','5k','190k','250k',
+'1700','5k','190k','250k'
+'5k','10k','25k','50k',
+'100k','1m','10m','50m',
+'2k','5k','190k','250k',
+'2k','5k','190k','250k',
+'2k','5k','190k','250k',
+'1k','5k','10k','40m',
+]
+food=['ENCHANTED_COOKED_FISH','ENCHANTED_COOKED_FISH','ENCHANTED_COOKED_FISH','ENCHANTED_COOKED_FISH',
+'ENCHANTED_RAW_CHICKEN','ENCHANTED_RAW_CHICKEN','ENCHANTED_RAW_CHICKEN','ENCHANTED_RAW_CHICKEN',
+'ENCHANTED_RAW_CHICKEN','ENCHANTED_RAW_CHICKEN','ENCHANTED_RAW_CHICKEN','ENCHANTED_RAW_CHICKEN',
+'PORK','PORK','PORK','PORK',
+'RABBIT','RABBIT','RABBIT','RABBIT',
+'ENCHANTED_RED_MUSHROOM','ENCHANTED_RED_MUSHROOM','ENCHANTED_RED_MUSHROOM','ENCHANTED_RED_MUSHROOM',
+'ENCHANTED_ENDSTONE','ENCHANTED_ENDSTONE','ENCHANTED_ENDSTONE','ENCHANTED_ENDSTONE',
+'PORK','PORK','PORK','PORK',
+'ENCHANTED_COBBLESTONE','ENCHANTED_COBBLESTONE','ENCHANTED_COBBLESTONE','ENCHANTED_COBBLESTONE',
+'ENCHANTED_COBBLESTONE','ENCHANTED_COBBLESTONE','ENCHANTED_COBBLESTONE','ENCHANTED_COBBLESTONE',
+'ENCHANTED_COAL_BLOCK','ENCHANTED_COAL_BLOCK','ENCHANTED_COAL_BLOCK','ENCHANTED_COAL_BLOCK',
+'ENCHANTED_BLAZE_ROD','ENCHANTED_BLAZE_ROD','ENCHANTED_BLAZE_ROD','ENCHANTED_BLAZE_ROD',
+'ENCHANTED_EYE_OF_ENDER','ENCHANTED_EYE_OF_ENDER','ENCHANTED_EYE_OF_ENDER','ENCHANTED_EYE_OF_ENDER',
+]
+foodamount=['0','0','1','8',
+'0','0','0','8',
+'0','0','0','0',
+'0','0','0','512',
+'0','0','0','64',
+'0','0','0','64',
+'0','0','0','512',
+'0','0','0','0',
+'0','0','0','64',
+'0','0','0','8',
+'0','0','0','64'
+'0','0','0','8',
+]
+kat=['1','2','7','12',
+'1','1','1','1',
+'1','1','5','10'
+,'1','1','1','1',
+'1','1','1','1',
+'1','1','1','3',
+'1','1','3','7',
+'1','2','5','20',
+'1','2','7','14',
+'1','1','1','3',
+'1','2','7','5',
+'1','2','7','12'
+'1','2','6','12',
+]
+print(get_pet_price(names,food,price,foodamount,kat))
