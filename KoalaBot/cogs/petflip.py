@@ -28,7 +28,7 @@ kat=['1','2','7','12',
 '1','1','5','10'
 ,'1','1','1','1',
 '1','1','1','1',]
-class Petflip(commands.Cog):
+class Petflip(commands.Cog, name="Petflip"):
 
     def __init__(self, client):
         self.client = client

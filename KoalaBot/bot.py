@@ -17,7 +17,7 @@ print(f"{cwd}\n-----")
 # Defining a few things
 bot = commands.Bot(command_prefix='-', case_insensitive=True, owner_id=760479247579480086)
 logging.basicConfig(level=logging.INFO)
-status = cycle(['with -help', 'with -', 'Hypixel Skyblock'])
+status = cycle(['with -help', 'with -', 'Hypixel Skyblock']) #add more 
 
 @bot.event
 async def on_ready():
