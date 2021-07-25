@@ -1,5 +1,7 @@
 # Libs
-import discord # For discord
+import discord
+from discord import colour
+from discord.embeds import Embed # For discord
 from discord.ext import commands, tasks # For discord
 import logging # For logging
 from pathlib import Path # For paths
@@ -39,6 +41,21 @@ async def load(ctx, extension):
 @bot.command()
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
+
+@bot.command()
+async def info(ctx):
+    embed = discord.Embed(
+        title = 'Info on KoalaBot',
+        descrption = 'Description',
+        colour = discord.Colour.blue()
+    )
+
+    embed.set_footer(text='Made by TheLitblock & DaAwsomeGuy')
+    embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+    embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
+    embed.add_field(name = 'What does this bot do?', value = 'It finds items to flip in the Bazaar and AH to flip!', inline = True)
+
+    await ctx.send(embed = embed)
 
 @tasks.loop(seconds=10)
 async def change_status():
