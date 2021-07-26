@@ -8,3 +8,4 @@ We offer:
       An ah flipper ig idk bro we might add ai into it 🤷‍♂️
   Bazzar flipper:
       An advanced bazzar flipper with sell time estimates, multi objective optimization and analasys. 
+ pro speling
