@@ -1,3 +1,4 @@
+
 import requests,json,ijson
 from operator import itemgetter
 from requests.models import Response
@@ -91,7 +92,7 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
                 r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
                 p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(round(r[1]-finished))
+                finsihedreturn.append([round(r[1]-finished),r])
             except Exception as e:
                 print(e)
                 pass
@@ -106,7 +107,7 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
                 r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
                 p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
                 finished=o+int(price[i])+p[1]+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(round(r[1]-finished))
+                finsihedreturn.append([round(r[1]-finished),r])
             except Exception as e:
                 print(e)
                 pass
@@ -121,7 +122,7 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
                 r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
                 p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(round(r[1]-finished))
+                finsihedreturn.append([round(r[1]-finished),r])
             except Exception as e:
                 print(e)
                 pass
@@ -136,7 +137,7 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
                 r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
                 p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(round(r[1]-finished))
+                finsihedreturn.append([round(r[1]-finished),r])
             except Exception as e:
                 print(e)
                 pass
@@ -155,14 +156,22 @@ class Inputpet(commands.Cog):
         for i in range(len(x)):
             y.append([])
             y[i].append(x[i])
-        await ctx.send(get_pet_price(y[0],y[1],y[2],y[3],y[4],y[5]))
+        items = get_pet_price(y[0],y[1],y[2],y[3],y[4],y[5])
+        
+        try:
+            embed = discord.Embed(
+                title = 'Profits from the Pet!',
+                descrption = 'Made from Hypixel API',
+                colour = discord.Colour.blue()
+            )
+            embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy')
+            embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+            embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
+            for i in range(len(items)):
+                embed.add_field(name =  items[i][1][0].title()+' '+items[i][1][2], value = items[i][0], inline = True)
+            await ctx.send(embed = embed)
+        except Exception as e:
+            print(e)
         await ctx.send("Done!")
-    async def on_error(event, *args, **kwargs):
-        embed = discord.Embed(title=':x: Event Error', colour=0xe74c3c) #Red
-        embed.add_field(name='Event', value=event)
-        embed.description = '```py\n%s\n```' % traceback.format_exc()
-        embed.timestamp = datetime.datetime.utcnow()
-        await Inputpet.AppInfo.owner.send(embed=embed)
 def setup(client):
     client.add_cog(Inputpet(client))
- 
