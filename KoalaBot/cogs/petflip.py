@@ -28,7 +28,7 @@ kat=['1','2','7','12',
 '1','1','5','10'
 ,'1','1','1','1',
 '1','1','1','1',]
-class Petflip(commands.Cog, name="Petflip"):
+class Petflip(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -36,9 +36,6 @@ class Petflip(commands.Cog, name="Petflip"):
     @commands.command()
     #async def petflip(self, ctx):
     async def petflip(self, ctx):
-        """
-        : Get profit of certain pet flips
-        """
         await ctx.send("Getting profit...")
         pets = get_pet_price(names,food,price,foodamount,kat)
         await ctx.send(pets)
