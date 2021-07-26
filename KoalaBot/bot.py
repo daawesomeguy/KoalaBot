@@ -34,7 +34,15 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send("Command not found. Check -help for commands.")
+        embed = discord.Embed(
+            colour = discord.Colour.red(),
+            title = "Help"
+        )
+        embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.add_field(name='Command not Found!', value='Try -pong, -petflip, petinput', inline=False)
+        
+        await channel.send(embed=embed)
 
 @bot.command()
 async def load(ctx, extension):
