@@ -37,7 +37,7 @@ class Petflip(commands.Cog, name="Petflip"):
     #async def petflip(self, ctx):
     async def petflip(self, ctx):
         """
-        Get profit of certain pet flips
+        : Get profit of certain pet flips
         """
         await ctx.send("Getting profit...")
         pets = get_pet_price(names,food,price,foodamount,kat)
@@ -54,7 +54,6 @@ class Petflip(commands.Cog, name="Petflip"):
             embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
             for i in range(len(pets)):
                 embed.add_field(name =  pets[i][0] + ": " + pets[i][2], value = pets[i][1], inline = True)
-
             await ctx.send(embed = embed)
         except Exception as e:
             print(e)
