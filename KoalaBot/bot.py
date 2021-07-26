@@ -18,8 +18,10 @@ print(f"{cwd}\n-----")
 
 # Defining a few things
 bot = commands.Bot(command_prefix='-', case_insensitive=True, owner_id=868996601341964368) #other id for 1st bot -> 760479247579480086
+bot.remove_command('help')
 logging.basicConfig(level=logging.INFO)
 status = cycle(['with -help', 'with -', 'Hypixel Skyblock']) #add more 
+whitelisted = [390562591333810187, 703042442328408155]
 
 @bot.event
 async def on_ready():
@@ -36,11 +38,19 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def load(ctx, extension):
-    bot.load_extension(f'cogs.{extension}')
+    if ctx.author.id in whitelisted:
+        await ctx.send('Loaded ' + extension)
+        bot.load_extension(f'cogs.{extension}')
+    else:
+        await ctx.send('You cannot run this command')
 
 @bot.command()
 async def unload(ctx, extension):
-    bot.unload_extension(f'cogs.{extension}')
+    if ctx.author.id in whitelisted:
+        await ctx.send('Unloaded ' + extension)
+        bot.unload_extension(f'cogs.{extension}')
+    else:
+        await ctx.send('You cannot run this command')
 
 @bot.command()
 async def info(ctx):
@@ -56,6 +66,28 @@ async def info(ctx):
     embed.add_field(name = 'What does this bot do?', value = 'It finds items to flip in the Bazaar and AH to flip!', inline = True)
 
     await ctx.send(embed = embed)
+
+@bot.command(pass_context=True)
+async def help(ctx):
+    author = ctx.message.author
+    channel = await author.create_dm()
+    try:
+        embed = discord.Embed(
+            colour = discord.Colour.orange(),
+            title = "Help"
+        )
+
+        embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
+        embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy')
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.add_field(name='-ping', value='pong!', inline=False)
+        embed.add_field(name='-petflip', value='Return profits of flipping certain pets', inline=False)
+
+        await channel.send(embed=embed)
+
+    except Exception as e:
+        print(e)
+
 
 @tasks.loop(seconds=10)
 async def change_status():
