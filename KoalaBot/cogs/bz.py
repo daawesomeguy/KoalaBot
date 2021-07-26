@@ -8,7 +8,7 @@ from discord.ext import commands
 import traceback
 import datetime
 from operator import itemgetter
-class Bz(commands.Cog, name="Bazaar"):
+class Bz(commands.Cog):
 
     def __init__(self, client):
         self.client = client
@@ -16,9 +16,6 @@ class Bz(commands.Cog, name="Bazaar"):
     @commands.command()
     #async def petflip(self, ctx):
     async def bz(self, ctx):
-        """
-        : Bazaar flipper command
-        """
         await ctx.send("Getting Bazaar...")
         items = bz()
         
