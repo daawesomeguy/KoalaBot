@@ -42,7 +42,7 @@ async def on_command_error(ctx, error):
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         embed.add_field(name='Command not Found!', value='Try -pong, -petflip, petinput', inline=False)
         
-        await channel.send(embed=embed)
+        await ctx.send(embed=embed)
 
 @bot.command()
 async def load(ctx, extension):
