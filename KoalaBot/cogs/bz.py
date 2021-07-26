@@ -18,24 +18,20 @@ class Bz(commands.Cog):
     async def bz(self, ctx):
         await ctx.send("Getting Bazaar...")
         items = bz()
-        
         try:
             embed = discord.Embed(
                 title = 'Profits from the Bazaar!',
                 descrption = 'Made from Hypixel API',
                 colour = discord.Colour.blue()
             )
-
-            embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy')
+            embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy') 
             embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
             embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
             for i in range(len(items)):
-                embed.add_field(name =  items[i][0], value = items[i][1], inline = True)
+                embed.add_field(name =  items[i][0].replace('_',' ').title(), value = str(round(items[i][1],2))+' Weight', inline = True)
             await ctx.send(embed = embed)
         except Exception as e:
             print(e)
-        
-        await ctx.send(items)
         await ctx.send("Done!")
 def setup(client):
     client.add_cog(Bz(client))
@@ -53,7 +49,7 @@ def bz():
             margin = round(buy - sell)
             percentage = round(margin/buy * 100, 1)
             #items.append(item + str(buy) + " " + str(sell) + " " + str(margin) + " " + str(percentage))
-            weight=str(((buy+sell)/5+margin)*percentage)
+            weight=int(((buy+sell)/5+margin)*percentage)
             items.append([item,weight])
         #f.write(x[i]['quick_status']['productId'] + ": ")
         #f.write(str(round(x[i]['quick_status']['buyPrice'] - x[i]['quick_status']['sellPrice'], 1)))
