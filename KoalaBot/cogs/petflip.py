@@ -172,7 +172,7 @@ kat=['1','2','7','12',
 '1','1','2','5',
 '1','1','5','10',
 '1','1','3','7',
-'1','1','5','10',
+'1','1','5','10'
 ]
 class Petflip(commands.Cog):
 
@@ -183,24 +183,23 @@ class Petflip(commands.Cog):
     #async def petflip(self, ctx):
     async def petflip(self, ctx):
         await ctx.send("Getting profit...")
-        pets = get_pet_price(names,food,price,foodamount,kat)
-        await ctx.send(pets)
+        items2 = get_pet_price(names,food,price,foodamount,kat)
+        items=sorted(items2, key=itemgetter(0),reverse=True)
         try:
             embed = discord.Embed(
-                title = 'Profits from petflips!',
+                title = 'Profits from pet flipping!',
                 descrption = 'Made from Hypixel API',
                 colour = discord.Colour.blue()
             )
-
             embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy')
             embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
             embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
-            for i in range(len(pets)):
-                embed.add_field(name =  pets[i][0] + ": " + pets[i][2], value = pets[i][1], inline = True)
+            for i in range(len(items)):
+                embed.add_field(name =  items[i][1][0].title()+' '+items[i][1][2], value = items[i][0], inline = True)
             await ctx.send(embed = embed)
         except Exception as e:
             print(e)
-
+        await ctx.send("Done!")
     '''
     async def on_error(event, *args, **kwargs):
         embed = discord.Embed(title=':x: Event Error', colour=0xe74c3c) #Red
@@ -290,7 +289,6 @@ def get_pet_price(names,food1,price,foodamount,kat):
         except:
             continue
     for i in range(int(len(names))):
-
         fishprice=respons['products'][food1[i]]['quick_status']['buyPrice']
         x=[]         
         if q3[i]=='COMMON':
@@ -303,10 +301,8 @@ def get_pet_price(names,food1,price,foodamount,kat):
                 whale1=[item for item in whalevalues if str(names[i]) in item[2]]
                 r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
                 p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
-                finsihedreturn.append(r)
-                finsihedreturn.append(p)
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(str(round(r[1]-finished)))
+                finsihedreturn.append([round(r[1]-finished),r])
             except Exception as e:
                 print(e)
                 pass
@@ -320,10 +316,8 @@ def get_pet_price(names,food1,price,foodamount,kat):
                 whale1=[item for item in whalevalues if str(names[i]) in item[2]]
                 r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
                 p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
-                finsihedreturn.append(r)
-                finsihedreturn.append(p)
                 finished=o+int(price[i])+p[1]+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(str(round(r[1]-finished)))
+                finsihedreturn.append([round(r[1]-finished),r])
             except Exception as e:
                 print(e)
                 pass
@@ -337,10 +331,8 @@ def get_pet_price(names,food1,price,foodamount,kat):
                 whale1=[item for item in whalevalues if str(names[i]) in item[2]]
                 r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
                 p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
-                finsihedreturn.append(r)
-                finsihedreturn.append(p)
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(str(round(r[1]-finished)))
+                finsihedreturn.append([round(r[1]-finished),r])
             except Exception as e:
                 print(e)
                 pass
@@ -354,10 +346,8 @@ def get_pet_price(names,food1,price,foodamount,kat):
                 whale1=[item for item in whalevalues if str(names[i]) in item[2]]
                 r=min([item2 for item2 in whale1 if q4[i] in item2[0]])
                 p=min([item2 for item2 in whale1 if q3[i] in item2[0]])
-                finsihedreturn.append(r)
-                finsihedreturn.append(p)
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(str(round(r[1]-finished)))
+                finsihedreturn.append([round(r[1]-finished),r])
             except Exception as e:
                 print(e)
                 pass
