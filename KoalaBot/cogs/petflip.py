@@ -40,8 +40,25 @@ class Petflip(commands.Cog, name="Petflip"):
         Get profit of certain pet flips
         """
         await ctx.send("Getting profit...")
-        await ctx.send(get_pet_price(names,food,price,foodamount,kat))
-        await ctx.send("Done!")
+        pets = get_pet_price(names,food,price,foodamount,kat)
+        await ctx.send(pets)
+        try:
+            embed = discord.Embed(
+                title = 'Profits from petflips!',
+                descrption = 'Made from Hypixel API',
+                colour = discord.Colour.blue()
+            )
+
+            embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy')
+            embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+            embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
+            for i in range(len(pets)):
+                embed.add_field(name =  pets[i][0] + ": " + pets[i][2], value = pets[i][1], inline = True)
+
+            await ctx.send(embed = embed)
+        except Exception as e:
+            print(e)
+
     '''
     async def on_error(event, *args, **kwargs):
         embed = discord.Embed(title=':x: Event Error', colour=0xe74c3c) #Red
@@ -147,7 +164,7 @@ def get_pet_price(names,food1,price,foodamount,kat):
                 finsihedreturn.append(r)
                 finsihedreturn.append(p)
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(round(r[1]-finished))
+                finsihedreturn.append(str(round(r[1]-finished)))
             except Exception as e:
                 print(e)
                 pass
@@ -164,7 +181,7 @@ def get_pet_price(names,food1,price,foodamount,kat):
                 finsihedreturn.append(r)
                 finsihedreturn.append(p)
                 finished=o+int(price[i])+p[1]+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(round(r[1]-finished))
+                finsihedreturn.append(str(round(r[1]-finished)))
             except Exception as e:
                 print(e)
                 pass
@@ -181,7 +198,7 @@ def get_pet_price(names,food1,price,foodamount,kat):
                 finsihedreturn.append(r)
                 finsihedreturn.append(p)
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(round(r[1]-finished))
+                finsihedreturn.append(str(round(r[1]-finished)))
             except Exception as e:
                 print(e)
                 pass
@@ -198,7 +215,7 @@ def get_pet_price(names,food1,price,foodamount,kat):
                 finsihedreturn.append(r)
                 finsihedreturn.append(p)
                 finished=o+int(price[i])+int(p[1])+round(fishprice)*int(foodamount[i])
-                finsihedreturn.append(round(r[1]-finished))
+                finsihedreturn.append(str(round(r[1]-finished)))
             except Exception as e:
                 print(e)
                 pass
