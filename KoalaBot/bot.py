@@ -40,7 +40,7 @@ async def on_command_error(ctx, error):
         )
         embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Command not Found!', value='Try -pong, -petflip, petinput', inline=False)
+        embed.add_field(name='Command not Found!', value='Try -pong, -petflip, -petinput, -bz', inline=False)
         
         await ctx.send(embed=embed)
 
@@ -90,6 +90,8 @@ async def help(ctx):
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         embed.add_field(name='-ping', value='pong!', inline=False)
         embed.add_field(name='-petflip', value='Return profits of flipping certain pets', inline=False)
+        embed.add_field(name='-inputpet', value='Input a pet to find profit', inline=False)
+        embed.add_field(name='-bz', value='Returns best bazzar flips at the moment', inline=False)
 
         await ctx.send(embed=embed)
 
