@@ -91,7 +91,7 @@ async def help(ctx):
         embed.add_field(name='-ping', value='pong!', inline=False)
         embed.add_field(name='-petflip', value='Return profits of flipping certain pets', inline=False)
 
-        await channel.send(embed=embed)
+        await ctx.send(embed=embed)
 
     except Exception as e:
         print(e)
