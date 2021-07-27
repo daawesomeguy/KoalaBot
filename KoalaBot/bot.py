@@ -10,6 +10,7 @@ from itertools import cycle
 from discord.ext import commands
 import traceback
 import datetime
+import json
 
 from discord.ext.commands.errors import CommandNotFound
 cwd = Path(__file__).parents[0]
@@ -17,7 +18,13 @@ cwd = str(cwd)
 print(f"{cwd}\n-----")
 
 # Defining a few things
-bot = commands.Bot(command_prefix='-', case_insensitive=True, owner_id=868996601341964368) #other id for 1st bot -> 760479247579480086
+def get_prefix(bot, message):
+    with open('KoalaBot/prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+    
+    return prefixes[str(message.guild.id)]
+
+bot = commands.Bot(command_prefix=get_prefix, case_insensitive=True, owner_id=868996601341964368) #other id for 1st bot -> 760479247579480086
 bot.remove_command('help')
 logging.basicConfig(level=logging.INFO)
 status = cycle(['with -help', 'with -', 'Hypixel Skyblock']) #add more 
@@ -32,6 +39,26 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name=f"Playing with -help")) # This changes the bots 'activity'
 
 @bot.event
+async def on_guild_join(guild):
+    with open('KoalaBot/prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+    
+    prefixes[str(guild.id)] = '-'
+
+    with open('KoalaBot/prefixes.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+@bot.event
+async def on_guild_join(guild):
+    with open('KoalaBot/prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+    
+    prefixes.pop(str(guild.id))
+
+    with open('KoalaBot/prefixes.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
+
+@bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         embed = discord.Embed(
@@ -40,9 +67,19 @@ async def on_command_error(ctx, error):
         )
         embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-        embed.add_field(name='Command not Found!', value='Try -pong, -petflip, -petinput, -bz', inline=False)
+        embed.add_field(name='Command not Found!', value='Try -pong, -petflip, petinput', inline=False)
         
         await ctx.send(embed=embed)
+
+@bot.command()
+async def changeprefix(ctx, prefix):
+    with open('KoalaBot/prefixes.json', 'r') as f:
+        prefixes = json.load(f)
+    
+    prefixes[str(ctx.guild.id)] = prefix
+
+    with open('KoalaBot/prefixes.json', 'w') as f:
+        json.dump(prefixes, f, indent=4)
 
 @bot.command()
 async def load(ctx, extension):
@@ -90,10 +127,8 @@ async def help(ctx):
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         embed.add_field(name='-ping', value='pong!', inline=False)
         embed.add_field(name='-petflip', value='Return profits of flipping certain pets', inline=False)
-        embed.add_field(name='-inputpet', value='Input a pet to find profit', inline=False)
-        embed.add_field(name='-bz', value='Returns best bazzar flips at the moment', inline=False)
 
-        await ctx.send(embed=embed)
+        await channel.send(embed=embed)
 
     except Exception as e:
         print(e)
