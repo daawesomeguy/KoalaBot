@@ -126,7 +126,9 @@ async def help(ctx):
         embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy')
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         embed.add_field(name='-ping', value='pong!', inline=False)
-        embed.add_field(name='-petflip', value='Return profits of flipping certain pets', inline=False)
+        embed.add_field(name='-petflip', value='Return profits of flipping certain pets!', inline=False)
+        embed.add_field(name='-inputpet', value='Input values to get profit of a petflip!', inline=False)
+        embed.add_field(name='-bz', value='Bazaar weights and best items to flip!', inline=False)
 
         await channel.send(embed=embed)
 
