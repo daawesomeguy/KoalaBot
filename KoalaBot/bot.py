@@ -28,7 +28,7 @@ def get_prefix(bot, message):
 bot = commands.Bot(command_prefix=get_prefix, case_insensitive=True, owner_id=868996601341964368) #other id for 1st bot -> 760479247579480086
 bot.remove_command('help')
 logging.basicConfig(level=logging.INFO)
-status = cycle(['with -help', 'with -', 'Hypixel Skyblock']) #add more 
+status = cycle(['with AH items', 'with Bazaar margins', 'Hypixel Skyblock', 'with Hypixel API', 'with Help Command']) #add more 
 whitelisted = [390562591333810187, 703042442328408155]
 
 @bot.event
@@ -83,6 +83,7 @@ async def changeprefix(ctx, prefix):
         json.dump(prefixes, f, indent=4)
 
     await ctx.send(f'Prefix changed to: {prefix}')
+    name=f'{prefix}KoalaBot'
 
 @bot.command()
 async def load(ctx, extension):
@@ -139,7 +140,7 @@ async def help(ctx):
         print(e)
 
 
-@tasks.loop(seconds=10)
+@tasks.loop(seconds=5)
 async def change_status():
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(next(status)))
 
