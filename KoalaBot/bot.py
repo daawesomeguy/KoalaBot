@@ -13,6 +13,7 @@ import datetime
 import json
 
 from discord.ext.commands.errors import CommandNotFound
+from discord.utils import get
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
 print(f"{cwd}\n-----")
@@ -35,7 +36,7 @@ async def on_ready():
     change_status.start()
     #print(f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: -\n-----")
     # Another way to use variables in strings
-    print("-----\nLogged in as: {} : {}\n-----\nMy current prefix is: -\n-----".format(bot.user.name, bot.user.id))
+    print("-----\nLogged in as: {} : {}\n-----".format(bot.user.name, bot.user.id))
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name=f"Playing with -help")) # This changes the bots 'activity'
 
 @bot.event
@@ -49,7 +50,7 @@ async def on_guild_join(guild):
         json.dump(prefixes, f, indent=4)
 
 @bot.event
-async def on_guild_join(guild):
+async def on_guild_remove(guild):
     with open('KoalaBot/prefixes.json', 'r') as f:
         prefixes = json.load(f)
     
@@ -80,6 +81,8 @@ async def changeprefix(ctx, prefix):
 
     with open('KoalaBot/prefixes.json', 'w') as f:
         json.dump(prefixes, f, indent=4)
+
+    await ctx.send(f'Prefix changed to: {prefix}')
 
 @bot.command()
 async def load(ctx, extension):
