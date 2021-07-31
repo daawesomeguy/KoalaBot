@@ -21,7 +21,7 @@ class Bz(commands.Cog):
                 title = '`Profits from the Bazaar! Pg.1`',
                 colour = discord.Colour.blue()
             )
-            page1.set_footer(text='Made by TheLitblock & DaAwesomeGuy, Page 1') 
+            page1.set_footer(text='Made by TheLitblock & DaAwesomeGuy') 
             page1.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
             page1.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
             for i in range(25):
