@@ -160,7 +160,7 @@ class Inputpet(commands.Cog):
         
         try:
             embed = discord.Embed(
-                title = 'Profits from the Pet!',
+                title = '`Profits from the Pet!`',
                 descrption = 'Made from Hypixel API',
                 colour = discord.Colour.blue()
             )
