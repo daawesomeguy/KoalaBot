@@ -187,7 +187,7 @@ class Petflip(commands.Cog):
         items=sorted(items2, key=itemgetter(0),reverse=True)
         try:
             embed = discord.Embed(
-                title = 'Profits from pet flipping!',
+                title = '`Profits from pet flipping!`',
                 descrption = 'Made from Hypixel API',
                 colour = discord.Colour.blue()
             )
