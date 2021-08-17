@@ -342,3 +342,4 @@ async def get_pet_price(names,food1,price,foodamount,kat):
             print(e)
     print(finsihedreturn)
     return finsihedreturn
+
