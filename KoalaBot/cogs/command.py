@@ -8,7 +8,7 @@ class Command(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        await ctx.send('Pong!')
+        await ctx.send(f'!pong {ctx.latency}!')
 
 def setup(client):
     client.add_cog(Command(client))
