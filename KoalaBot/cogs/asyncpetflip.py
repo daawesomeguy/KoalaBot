@@ -174,14 +174,14 @@ kat=['1','2','7','12',
 '1','1','3','7',
 '1','1','5','10'
 ]
-class asnycbestflip(commands.Cog):
+class asyncbestflip(commands.Cog):
 
     def __init__(self, client):
         self.client = client
 
     @commands.command()
     #async def petflip(self, ctx):
-    async def asnycbestflip(self, ctx):
+    async def asyncbestflip(self, ctx):
         await ctx.send("Getting profit...")
         seen=[]
         answer=[]
@@ -216,7 +216,7 @@ class asnycbestflip(commands.Cog):
         await Petflip.AppInfo.owner.send(embed=embed)
     '''
 def setup(client):
-    client.add_cog(asnycbestflip(client))
+    client.add_cog(asyncbestflip(client))
 async def get_pet_price(names,food1,price,foodamount,kat):
     q3=[]
     q4=[]
