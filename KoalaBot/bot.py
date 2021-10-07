@@ -44,7 +44,7 @@ def get_prefix(bot, message):
 bot = commands.Bot(command_prefix=get_prefix, case_insensitive=True, owner_id=868996601341964368) #other id for 1st bot -> 760479247579480086
 bot.remove_command('help')
 logging.basicConfig(level=logging.INFO)
-status = cycle(['with AH items', 'with Bazaar margins', 'Hypixel Skyblock', 'with Hypixel API', 'with Help Command']) #add more 
+status = cycle(['Hypixel', 'with Bazaar margins', 'Hypixel Skyblock', 'with Hypixel API', 'with Help Command']) #add more 
 whitelisted = [390562591333810187, 703042442328408155]
 
 @bot.event
