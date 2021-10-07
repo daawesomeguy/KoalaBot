@@ -195,7 +195,7 @@ class abf(commands.Cog):
             embed.set_footer(text='Made by TheLitblock & DaAwesomeGuy')
             embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
             embed.set_thumbnail(url = 'https://media.discordapp.net/attachments/760479742998085655/868886766675980349/koala-173552701.jpeg?width=1270&height=953')
-            for i in range(len(items):
+            for i in range(len(items)):
                 embed.add_field(name =  str(items[i][0][0].title())+' '+str(items[i][0][2]), value = "`"+str(items[i][1])+"`", inline = True)
             await ctx.send(embed = embed)
         except Exception as e:
