@@ -185,6 +185,7 @@ class abf(commands.Cog):
         await ctx.send("Getting profit...")
         items2 = await get_pet_price(names,food,price,foodamount,kat)
         items = sorted(items2, key=lambda tup: tup[1],reverse=True)
+        print(items)
         try:
             embed = discord.Embed(
                 title = 'Profits from pet flipping!',
