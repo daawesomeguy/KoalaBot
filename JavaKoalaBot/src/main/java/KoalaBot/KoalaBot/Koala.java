@@ -16,7 +16,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 public class Koala {
 	public static final String prefix = "-";
 	public static void main(String[] args) throws LoginException {
-		JDA jda = JDABuilder.createDefault("NzYwNDc5MjQ3NTc5NDgwMDg2.X3MpfQ.Gnm_q982rxCqDM1w-nN2VxlzY2o").build();
+		JDA jda = JDABuilder.createDefault("").build();
 		
 		EventWaiter waiter = new EventWaiter();
 		
