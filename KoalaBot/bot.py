@@ -41,11 +41,11 @@ def get_prefix(bot, message):
     
     return prefixes[str(message.guild.id)]
 
-bot = commands.Bot(command_prefix=get_prefix, case_insensitive=True, owner_id=868996601341964368) #other id for 1st bot -> 760479247579480086
+bot = commands.Bot(command_prefix=get_prefix, case_insensitive=True, owner_id=) #other id for 1st bot -> 760479247579480086
 bot.remove_command('help')
 logging.basicConfig(level=logging.INFO)
 status = cycle(['Hypixel', 'with Bazaar margins', 'Hypixel Skyblock', 'with Hypixel API', 'with Help Command']) #add more 
-whitelisted = [390562591333810187, 703042442328408155]
+whitelisted = []
 
 @bot.event
 async def on_ready():
@@ -164,4 +164,4 @@ for filename in os.listdir('KoalaBot/cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
-bot.run("ODY4OTk2NjAxMzQxOTY0MzY4.YP3yJg.xwCWoypuPCjwKzfvOw91M2ZrIoc") # Runs our bot 1st bot -> NzYwNDc5MjQ3NTc5NDgwMDg2.X3MpfQ.Gnm_q982rxCqDM1w-nN2VxlzY2o
+bot.run("") # Runs our bot 1st bot -> key
