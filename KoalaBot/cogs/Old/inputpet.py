@@ -54,7 +54,7 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
             q4[i]='LEGENDARY'
     while True:
         try:
-            r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
+            r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'key'})
             totalpages=r.json()['totalPages']
             break
         except:
@@ -66,7 +66,7 @@ def get_pet_price(names,q3,food1,price,foodamount,kat):
     for i in range(0,totalpages):
         while True:
             try:
-                r=requests.get('https://api.hypixel.net/skyblock/auctions?page='+str(i),data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
+                r=requests.get('https://api.hypixel.net/skyblock/auctions?page='+str(i),data={'auth':'key'})
                 x=r.json()
                 break
             except:
