@@ -8,14 +8,14 @@ o=0
 q2=1
 q3=input('what rarity? (ALL CAPS):')
 q4=input('what finished rarity (ALL CAPS):')
-r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
+r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'key'})
 totalpages=r.json()['totalPages']
 katvalues=[]
 whalevalues=[]
 for i in range(0,totalpages):
     while True:
         try:
-            r=requests.get('https://api.hypixel.net/skyblock/auctions?page='+str(i),data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
+            r=requests.get('https://api.hypixel.net/skyblock/auctions?page='+str(i),data={'auth':'key'})
             x=r.json()
             break
         except:
