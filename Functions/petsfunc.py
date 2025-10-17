@@ -2,7 +2,7 @@ import requests,json,ijson
 from operator import itemgetter
 from requests.models import Response
 def get_pet_price(name,q3,q4,price1,price2,price3,price4,food1,foodamount,kat,kat1,kat2,kat3):
-    r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
+    r=requests.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'key'})
     o=0
     totalpages=r.json()['totalPages']
     katvalues=[]
@@ -10,7 +10,7 @@ def get_pet_price(name,q3,q4,price1,price2,price3,price4,food1,foodamount,kat,ka
     for i in range(0,totalpages):
         while True:
             try:
-                r=requests.get('https://api.hypixel.net/skyblock/auctions?page='+str(i),data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
+                r=requests.get('https://api.hypixel.net/skyblock/auctions?page='+str(i),data={'auth':'key'})
                 x=r.json()
                 break
             except:
