@@ -251,7 +251,7 @@ async def get_pet_price(names,food1,price,foodamount,kat):
     while True:
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'}) as r:
+                async with session.get('https://api.hypixel.net/skyblock/auctions?page=0',data={'auth':'key'}) as r:
                     totalpages= await r.json()
                     totalpages=totalpages['totalPages']
                     break
@@ -268,7 +268,7 @@ async def get_pet_price(names,food1,price,foodamount,kat):
         while True:
             try:
                 async with aiohttp.ClientSession() as session:
-                    async with session.get('https://api.hypixel.net/skyblock/auctions?page='+str(i),data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'}) as x:
+                    async with session.get('https://api.hypixel.net/skyblock/auctions?page='+str(i),data={'auth':'key'}) as x:
                         x=await r.json()
                         break
             except:
