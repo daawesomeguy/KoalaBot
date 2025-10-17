@@ -1,5 +1,5 @@
 import requests,json,ijson
-r=requests.get('https://api.hypixel.net/skyblock/bazaar',data={'auth':'378bce43-202d-469b-b357-e2cd995236b7'})
+r=requests.get('https://api.hypixel.net/skyblock/bazaar',data={'auth':'key'})
 x=r.json()['products']
 f = open("bazaar.txt", "a")
 for i in x:
